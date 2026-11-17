@@ -348,9 +348,8 @@ export default function terminalAttentionExtension(pi: ExtensionAPI): void {
     ctx.hasUI && ctx.mode === "tui";
 
   const baseTabTitle = (ctx: ExtensionContext): string => {
-    if (currentTopic) return `π · ${currentTopic}`;
     const dirName = path.basename(ctx.cwd) || "pi";
-    return `π · ${dirName}`;
+    return `π · ${dirName}${currentTopic ? ` · ${currentTopic}` : ""}`;
   };
 
   const renderTabTitle = (ctx: ExtensionContext): void => {

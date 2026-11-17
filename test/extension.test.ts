@@ -68,3 +68,32 @@ test("tracks working spinner, background attention badge, and focus recovery", a
   await emit("session_shutdown");
   assert.equal(terminalInput, undefined);
 });
+
+test("keeps the folder name when restoring a task topic", async () => {
+  const handlers = new Map<string, Handler>();
+  const pi = {
+    on(name: string, fn: Handler) { handlers.set(name, fn); },
+    appendEntry() {},
+  };
+  terminalAttentionExtension(pi as never);
+
+  const titles: string[] = [];
+  const ctx = {
+    hasUI: true,
+    mode: "tui",
+    cwd: "/tmp/demo-project",
+    sessionManager: {
+      getBranch: () => [{ type: "custom", customType: "ghostty-tab-title", data: { topic: "修复登录" } }],
+    },
+    ui: {
+      setTitle: (title: string) => titles.push(title),
+      onTerminalInput: () => () => {},
+    },
+  };
+
+  await handlers.get("session_start")?.({}, ctx);
+  assert.equal(titles.at(-1), "π · demo-project · 修复登录");
+  await handlers.get("agent_start")?.({}, ctx);
+  assert.equal(titles.at(-1), "•·· π · demo-project · 修复登录");
+  await handlers.get("session_shutdown")?.({}, ctx);
+});
