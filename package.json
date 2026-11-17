@@ -1,0 +1,60 @@
+{
+  "name": "pi-terminal-attention",
+  "version": "0.1.0",
+  "description": "Cross-platform terminal tab spinner, focus-aware completion badges, sound cues, and desktop notifications for Pi (macOS Ghostty & Windows Terminal/WezTerm)",
+  "type": "module",
+  "license": "MIT",
+  "author": "jiuai233",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiuai233/pi-terminal-attention.git"
+  },
+  "homepage": "https://github.com/jiuai233/pi-terminal-attention#readme",
+  "bugs": {
+    "url": "https://github.com/jiuai233/pi-terminal-attention/issues"
+  },
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pi-coding-agent",
+    "ghostty",
+    "windows-terminal",
+    "notifications",
+    "tab-title"
+  ],
+  "files": [
+    "src/",
+    "sounds/",
+    "start.sh",
+    "start.cmd",
+    "README.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ]
+  },
+  "scripts": {
+    "test": "node --test test/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm test"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": ">=1.1.0"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@earendil-works/pi-ai": "^1.5.0",
+    "@earendil-works/pi-coding-agent": "^1.5.0",
+    "@types/node": "^24.19.1",
+    "typescript": "^7.0.2"
+  }
+}
